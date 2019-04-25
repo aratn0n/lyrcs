@@ -5,7 +5,9 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.lyrcs.domain.common.ResultState
 import com.lyrcs.presentation.R
 import dagger.android.support.DaggerFragment
 
@@ -16,6 +18,10 @@ abstract class BaseFragment : DaggerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
+
+    protected open fun initView() {
+
     }
 
     protected fun getBaseActivity(): AppCompatActivity = activity as AppCompatActivity
@@ -46,7 +52,25 @@ abstract class BaseFragment : DaggerFragment() {
 
     protected fun hideLoading() = mProgressDialog?.cancel()
 
-    protected open fun initView() {
-
+    protected fun showErrorDialog() {
+        context?.apply {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Error")
+            builder.setMessage("Something went wrong, please try again.")
+            builder.setPositiveButton("OK") { _, _ -> }
+            val dialog: AlertDialog = builder.create()
+            dialog.show()
+        }
     }
+
+    protected fun <T>handleResult(resultState: ResultState<T>,
+                                       success: () -> Unit,
+                                       error: () -> Unit) {
+        when(resultState) {
+            is ResultState.Loading -> showLoading()
+            is ResultState.Success -> success()
+            is ResultState.Error -> error()
+        }
+    }
+
 }

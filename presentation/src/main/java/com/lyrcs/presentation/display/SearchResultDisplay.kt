@@ -3,9 +3,9 @@ package com.lyrcs.presentation.display
 import android.os.Parcel
 import android.os.Parcelable
 
-data class TrackDisplay(val trackId: String,
-                        val trackName: String,
-                        val artistName: String): Parcelable {
+data class SearchResultDisplay(val trackId: String,
+                               val trackName: String,
+                               val artistName: String): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -23,12 +23,12 @@ data class TrackDisplay(val trackId: String,
         return 0
     }
 
-    companion object CREATOR : Parcelable.Creator<TrackDisplay> {
-        override fun createFromParcel(parcel: Parcel): TrackDisplay {
-            return TrackDisplay(parcel)
+    companion object CREATOR : Parcelable.Creator<SearchResultDisplay> {
+        override fun createFromParcel(parcel: Parcel): SearchResultDisplay {
+            return SearchResultDisplay(parcel)
         }
 
-        override fun newArray(size: Int): Array<TrackDisplay?> {
+        override fun newArray(size: Int): Array<SearchResultDisplay?> {
             return arrayOfNulls(size)
         }
     }

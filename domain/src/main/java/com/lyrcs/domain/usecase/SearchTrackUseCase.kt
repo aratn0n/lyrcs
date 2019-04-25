@@ -8,8 +8,7 @@ import javax.inject.Inject
 
 class SearchTrackUseCase @Inject constructor(private val lyricsRepositoryContract: LyricsRepositoryContract) {
 
-    fun searchTrack(trackName: String,
-                  artistName: String): Single<ResultState<List<Track>>> {
+    fun searchTrack(trackName: String, artistName: String): Single<List<Track>> {
         return lyricsRepositoryContract.searchTracks(trackName, artistName)
     }
 }

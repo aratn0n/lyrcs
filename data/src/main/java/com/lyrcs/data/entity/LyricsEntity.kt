@@ -1,12 +1,7 @@
 package com.lyrcs.data.entity
 
+import com.google.gson.annotations.SerializedName
 import com.lyrcs.domain.entity.Lyrics
 
-class LyricsEntity {
-
-    fun toDomain() = Lyrics (
-        "trackName",
-        "articst",
-        "lyrics"
-    )
+data class LyricsEntity(@SerializedName("lyrics_body") val lyrics: String) {
 }

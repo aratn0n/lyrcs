@@ -14,16 +14,34 @@ import javax.inject.Singleton
 class NetworkModule {
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient)
-        = Retrofit.Builder()
-            .baseUrl("https://api.musixmatch.com/ws/1.1")
+    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+//        val urlBuilder = HttpUrl.parse("https://api.musixmatch.com/ws/1.1/")!!.newBuilder()
+//        urlBuilder.addQueryParameter("apikey", "1940f4bf677988dedbd9fa57d4f3a314")
+
+        return Retrofit.Builder()
+            .baseUrl("https://api.musixmatch.com/ws/1.1/")
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()
+    }
+
 
     @Provides
-    fun provideOkHttpClientBuilder(): OkHttpClient.Builder = OkHttpClient.Builder()
+    fun provideOkHttpClientBuilder(): OkHttpClient.Builder {
+            return OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    val request = chain.request()
+                    val url = request.url().newBuilder()
+                        .addQueryParameter("apikey", "1940f4bf677988dedbd9fa57d4f3a314")
+                        .build()
+                    val newRequest = chain.request()
+                        .newBuilder()
+                        .url(url)
+                        .build()
+                    chain.proceed(newRequest)
+        }
+    }
 
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor = HttpLoggingInterceptor()

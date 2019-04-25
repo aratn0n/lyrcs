@@ -7,11 +7,10 @@ import io.reactivex.Single
 
 interface LyricsRepositoryContract: BaseRepository {
 
-    fun searchTracks(trackName: String,
-                     artistName: String)
-        : Single<ResultState<List<Track>>>
+    fun searchTracks(trackName: String, artistName: String)
+        : Single<List<Track>>
 
     fun getLyrics(trackId: String)
-        : Single<ResultState<Lyrics>>
+        : Single<Lyrics>
 
 }

@@ -6,15 +6,26 @@
             app:startDestination="@id/searchLyricsFragment">
 
     <fragment android:id="@+id/searchLyricsFragment"
-              android:name="com.lyrcs.presentation.ui.search_lyrics.FragmentSearchLyrics"
+              android:name="com.lyrcs.presentation.ui.searchlyrics.FragmentSearchLyrics"
               android:label="SearchLyricsFragment"
               tools:layout="@layout/fragment_search_lyrics">
-        <action android:id="@+id/action_searchLyricsFragment_to_fragmentDisplayLyrics"
-                app:destination="@id/fragmentDisplayLyrics"/>
+        <action android:id="@+id/nav_to_search_result"
+                app:destination="@id/fragmentSearchResult" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
     </fragment>
     <fragment android:id="@+id/fragmentDisplayLyrics"
-              android:name="com.lyrcs.presentation.ui.display_lyrics.FragmentDisplayLyrics"
+              android:name="com.lyrcs.presentation.ui.displaylyrics.FragmentDisplayLyrics"
               android:label="FragmentDisplayLyrics"
               tools:layout="@layout/fragment_display_lyrics"/>
+    <fragment android:id="@+id/fragmentSearchResult"
+              android:name="com.lyrcs.presentation.ui.searchresult.FragmentSearchResult"
+              android:label="FragmentSearchResult"
+              tools:layout="@layout/fragment_search_result">
+        <action android:id="@+id/nav_to_display_lyrics"
+                app:destination="@id/fragmentDisplayLyrics" app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim" app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"/>
+    </fragment>
 
 </navigation>
